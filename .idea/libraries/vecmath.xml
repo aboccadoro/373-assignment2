@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="vecmath">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/vecmath.jar!/" />
+      <root url="file://$PROJECT_DIR$/../jogamp-all-platforms/jar" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../jogamp-all-platforms" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../jogamp-all-platforms/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../jogamp-all-platforms" recursive="false" type="SOURCES" />
+  </library>
+</component>
