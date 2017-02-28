@@ -301,10 +301,16 @@ class Hierarchical extends JFrame implements GLEventListener, KeyListener, Mouse
 		 * It rotates the bunny with example_rotateT degrees around the bunny's gravity center  
          */
         gl.glPushMatrix();	// push the current matrix to stack
+        gl.glTranslatef(-1.0f, 0f, 0f);
         gl.glRotatef(example_rotateT, 0, 1, 0);
         /* call objModel::Draw function to draw the model */
         bunny.Draw();
+
+        gl.glPopMatrix();
+        gl.glTranslatef(1.0f, 0f, 0f);
+        gl.glRotatef(example_rotateT, 0 ,1, 0);
         armadillo.Draw();
+        gl.glPushMatrix();
         //bird.Draw();
         //buddha.Draw();
         //plant.Draw();
