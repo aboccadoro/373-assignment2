@@ -1,0 +1,11 @@
+This scene starts at level 1 where we have an armadillo monster of sorts.
+He sits at the center of the scene where he rotates about his center on the y
+axis. He is disrupting the forest life found in deeper levels. Level 2 houses
+the bunny and male which both rotate on their centers about the y axis. They are
+located opposite each other and rotate about the armadillo at the same speed in
+the same direction 180 degrees apart. The bunny has 3 plants around it, plant1,
+plant2 and plant3 at levels 3, 4 and 5 respectively. The second plant rotates
+opposite the first and third and all at different speeds about the bunny. The male
+has a bird and three trees rotating about it. The bird immediately rotates around
+its head and is at level 3, the trees rotate about the male in the same fashion
+as the plants rotate about the bunny, at levels 4, 5 and 6.

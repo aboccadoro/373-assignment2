@@ -240,7 +240,7 @@ class Hierarchical extends JFrame implements GLEventListener, KeyListener, Mouse
     private final GLU glu = new GLU();
     private FPSAnimator animator;
 
-    private int winW = 800, winH = 800;
+    private int winW = 1600, winH = 1600;
     private boolean wireframe = false;
     private boolean cullface = true;
     private boolean flatshade = false;
@@ -257,14 +257,14 @@ class Hierarchical extends JFrame implements GLEventListener, KeyListener, Mouse
  /* Define more models you need for constructing your scene */
     private objModel bunny = new objModel("bunny.obj");
     private objModel armadillo = new objModel("armadillo.obj");
-    //private objModel bird = new objModel("bird.obj");
-    //private objModel buddha = new objModel("buddha.obj");
-    //private objModel plant = new objModel("plant.obj");
-    //private objModel shoe = new objModel("shoe.obj");
-    //private objModel statue = new objModel("statue.obj");
-    //private objModel teapot_chinese = new objModel("teapot_chinese.obj");
-    //private objModel tree_aspen = new objModel("tree_aspen.obj");
-    //private objModel wind_chimes = new objModel("wind_chimes.obj");
+    private objModel bird = new objModel("bird.obj");
+    private objModel male = new objModel("male.obj");
+    private objModel plant = new objModel("plant.obj");
+    private objModel plant2 = new objModel("plant.obj");
+    private objModel plant3 = new objModel("plant.obj");
+    private objModel tree_conical = new objModel("tree_conical.obj");
+    private objModel tree_aspen = new objModel("tree_aspen.obj");
+    private objModel tree_conical2 = new objModel("tree_conical.obj");
 
 
     private float example_rotateT = 0.f;
@@ -273,8 +273,8 @@ class Hierarchical extends JFrame implements GLEventListener, KeyListener, Mouse
 	 * transformation parameters to display the initial scene.
 	 * If these are not set correctly, the objects may disappear on start.
      */
-    private float xmin = -1f, ymin = -1f, zmin = -1f;
-    private float xmax = 1f, ymax = 1f, zmax = 1f;
+    private float xmin = -4.5f, ymin = -4.5f, zmin = -4.5f;
+    private float xmax = 4.5f, ymax = 4.5f, zmax = 4.5f;
 
     public void display(GLAutoDrawable drawable) {
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
@@ -288,6 +288,7 @@ class Hierarchical extends JFrame implements GLEventListener, KeyListener, Mouse
         }
 
         gl.glLoadIdentity();
+        gl.glDisable( GL2.GL_COLOR_MATERIAL );
 
         /* this is the transformation of the entire scene */
         gl.glTranslatef(-xpos, -ypos, -zpos);
@@ -297,28 +298,97 @@ class Hierarchical extends JFrame implements GLEventListener, KeyListener, Mouse
         gl.glTranslatef(-centerx, -centery, -centerz);
 
         /* === YOUR WORK HERE === */
- /* Below is an example of a rotating bunny
-		 * It rotates the bunny with example_rotateT degrees around the bunny's gravity center  
-         */
+        //LEVEL 1 - armadillo at the center disrupting peaceful forest
         gl.glPushMatrix();	// push the current matrix to stack
-        gl.glTranslatef(-1.0f, 0f, 0f);
+
+        //armadillo
+        gl.glRotatef(example_rotateT * 3, 0 ,1, 0);
+        color(new float[]{1.0f,0f,0f,1f});
+        armadillo.Draw();
+
+        //LEVEL 2 - bunny around some plants
+        //bunny
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glScalef(0.5f, 0.5f, 0.5f);
         gl.glRotatef(example_rotateT, 0, 1, 0);
-        /* call objModel::Draw function to draw the model */
+        gl.glTranslatef(-5.0f, -0.75f, 0f);
+        gl.glRotatef(-example_rotateT * 2, 0, 1, 0);
+        gl.glPushMatrix();
+        color(new float[]{1.0f, 1.0f, 0.998f});
         bunny.Draw();
 
+        //LEVEL 3 - plant1 rotating around bunny
+        //plant
         gl.glPopMatrix();
-        gl.glTranslatef(1.0f, 0f, 0f);
-        gl.glRotatef(example_rotateT, 0 ,1, 0);
-        armadillo.Draw();
         gl.glPushMatrix();
-        //bird.Draw();
-        //buddha.Draw();
-        //plant.Draw();
-        //shoe.Draw();
-        //statue.Draw();
-        //teapot_chinese.Draw();
-        //tree_aspen.Draw();
-        //wind_chimes.Draw();
+        gl.glRotatef(example_rotateT, 0, 1, 0);
+        gl.glTranslatef(-0.65f, 0f, 0f);
+        color(new float[]{0.486f,0.998f,0f,1f});
+        plant.Draw();
+
+        //LEVEL 4 - plant2 rotating around bunny
+        //plant2
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glRotatef(-example_rotateT * 2, 0, 1, 0);
+        gl.glTranslatef(-0.9f, 0f, 0f);
+        color(new float[]{0.502f,0.502f,0f,1f});
+        plant2.Draw();
+
+        //LEVEL 5 - plant3 rotating around bunny
+        //plant3
+        gl.glPopMatrix();
+        gl.glRotatef(example_rotateT * 3, 0, 1, 0);
+        gl.glTranslatef(-1.15f, 0f, 0f);
+        color(new float[]{0.486f,0.998f,0f,1f});
+        plant3.Draw();
+
+        //LEVEL 2 - male around some trees and a bird
+        //man
+        gl.glPopMatrix();
+        gl.glRotatef(example_rotateT, 0, 1, 0);
+        gl.glTranslatef(3.5f, 0.08f, 0f);
+        gl.glRotatef(-example_rotateT * 2, 0, 1, 0);
+        gl.glPushMatrix();
+        color(new float[]{0.961f, 0.871f, 0.702f, 1.0f});
+        male.Draw();
+
+        //Level 3 - bird flying around male
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glScalef(0.2f, 0.2f, 0.2f);
+        gl.glRotatef(example_rotateT * 4, 0, 1, 0);
+        gl.glTranslatef(1.0f, 0.6f, 0f);
+        gl.glRotatef(90.f, 0, 1, 0);
+        color(new float[]{0.255f, 0.412f, 0.882f, 1.0f});
+        bird.Draw();
+
+        //LEVEL 4 - first tree rotating around male
+        //tree_conical
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glRotatef(example_rotateT, 0, 1, 0);
+        gl.glTranslatef(0.6f, -0.2f, 0f);
+        color(new float[]{0f, 0.502f, 0f});
+        tree_conical.Draw();
+
+
+        //LEVEL 5 - second tree rotating around male
+        //tree_aspen
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glRotatef(-example_rotateT * 2, 0, 1, 0);
+        gl.glTranslatef(1.1f, 0.1f, 0f);
+        color(new float[]{0.502f, 0.502f, 0f});
+        tree_aspen.Draw();
+
+        //LEVEL 6 - third tree rotating around male
+        gl.glPopMatrix();
+        gl.glRotatef(example_rotateT * 3, 0, 1, 0);
+        gl.glTranslatef(1.5f, -0.2f, 0f);
+        color(new float[]{0f, 0.502f, 0f});
+        tree_conical2.Draw();
 
         gl.glPopMatrix();
 
@@ -326,6 +396,15 @@ class Hierarchical extends JFrame implements GLEventListener, KeyListener, Mouse
         if (animator.isAnimating()) {
             example_rotateT += 1.0f * animation_speed;
         }
+    }
+
+    //reduce amount of code and initializers
+    public void color(float[] mat_ambient) {
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_AMBIENT, mat_ambient, 0);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_DIFFUSE, new float[]{0.3f,0.3f,0.3f,1f}, 0);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SPECULAR, new float[]{1f,1f,.8f,1f}, 0);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SHININESS, new float[]{128}, 0);
+        gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_EMISSION, new float[]{0f,0f,0f,1f}, 0);
     }
 
     public Hierarchical() {
